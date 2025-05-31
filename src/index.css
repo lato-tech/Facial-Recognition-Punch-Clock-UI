@@ -3,3 +3,30 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 /* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+/* Dark mode transitions */
+.dark {
+  color-scheme: dark;
+}
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+/* Override default focus styles for better dark mode compatibility */
+*:focus-visible {
+  outline: 2px solid theme('colors.indigo.500');
+  outline-offset: 2px;
+}
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar {
+  width: 12px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: theme('colors.gray.800');
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: theme('colors.gray.600');
+  border-radius: 6px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.gray.500');
+}

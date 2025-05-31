@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Employee } from '../../utils/types';
 import { PlusIcon, SearchIcon, EditIcon, TrashIcon } from 'lucide-react';
 import AddEmployeeModal from './AddEmployeeModal';
+import EditEmployeeModal from './EditEmployeeModal';
 const mockEmployees: Employee[] = [{
   id: 'EMP001',
   name: 'Alex Johnson',
@@ -14,11 +15,16 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState<Employee[]>(mockEmployees);
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingEmployee, setEditingEmployee] = useState<Employee | null>(null);
   const handleAddEmployee = (employeeData: Employee) => {
     setEmployees([...employees, employeeData]);
   };
   const handleDeleteEmployee = (employeeId: string) => {
     setEmployees(employees.filter(emp => emp.id !== employeeId));
+  };
+  const handleEditEmployee = (employeeData: Employee) => {
+    setEmployees(employees.map(emp => emp.id === employeeData.id ? employeeData : emp));
+    setEditingEmployee(null);
   };
   const filteredEmployees = employees.filter(emp => emp.name.toLowerCase().includes(search.toLowerCase()) || emp.id.toLowerCase().includes(search.toLowerCase()) || emp.department.toLowerCase().includes(search.toLowerCase()));
   return <div className="space-y-6">
@@ -78,10 +84,10 @@ const EmployeeList = () => {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  <button className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 mr-3">
+                  <button className="text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 mr-3" onClick={() => setEditingEmployee(employee)}>
                     <EditIcon className="h-4 w-4" />
                   </button>
-                  <button className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+                  <button onClick={() => handleDeleteEmployee(employee.id)} className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
                     <TrashIcon className="h-4 w-4" />
                   </button>
                 </td>
@@ -89,6 +95,7 @@ const EmployeeList = () => {
           </tbody>
         </table>
       </div>
+      {editingEmployee && <EditEmployeeModal isOpen={true} onClose={() => setEditingEmployee(null)} onSubmit={handleEditEmployee} employee={editingEmployee} />}
     </div>;
 };
 export default EmployeeList;
