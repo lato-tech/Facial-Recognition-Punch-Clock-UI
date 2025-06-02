@@ -240,5 +240,5 @@ npm cache clean --force
 © 2024 Lato Technologies. All rights reserved.
 
 <div align="center">
-  <img src="https://i.imgur.com/X9ozAYg.png" alt="Powered by Lato Technologies" width="150"/>
+  <img src="https://namiex.com/wp-content/uploads/2021/11/Go.png" alt="Powered by Lato Technologies" width="150"/>
 </div>
